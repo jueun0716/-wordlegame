@@ -77,6 +77,21 @@ function appStart() {
     }
   };
 
+  const handleKeyboardClick = (key) => {
+    //이 함수는 사용자가 키보드를 누를 때 호출
+    const thisBlock = document.querySelector(
+      `.board-column[data-index='${attempts}${index}']`
+    );
+
+    if (index === 5) {
+      if (key === "Enter") handleEnterKey();
+      else return;
+    } else {
+      thisBlock.innerText = key;
+      index += 1;
+    }
+  };
+
   const startTimer = () => {
     const 시작_시간 = new Date();
 
@@ -93,5 +108,12 @@ function appStart() {
 
   startTimer();
   window.addEventListener("keydown", handleKeydown);
+
+  const keyboard = document.querySelectorAll(".keyboard-key"); //클릭 이벤트
+  keyboard.forEach((key) => {
+    key.addEventListener("click", () => {
+      handleKeyboardClick(key.innerText.toUpperCase());
+    });
+  });
 }
 appStart();
